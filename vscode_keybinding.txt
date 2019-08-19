@@ -1,0 +1,46 @@
+// Place your key bindings in this file to overwrite the defaults
+// Place your key bindings in this file to overwrite the defaults
+[ {"key": "capslock", "command": "extension.vim_escape",
+    "when": "editorTextFocus && vim.active && !inDebugRepl" }
+    ]
+
+
+add this to keybinding.json in vscode.
+
+
+add this to setting.json in vscode 
+
+
+{
+    "window.zoomLevel": 0,
+    "terminal.integrated.rendererType": "dom",
+
+  "vim.easymotion": true,
+  "vim.sneak": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "j"],
+      "after": ["<Esc>"]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "d"],
+      "after": ["d", "d"]
+    },
+    {
+      "before": ["<C-n>"],
+      "commands": [":nohl"]
+    }
+  ],
+  "vim.leader": ",",
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-f>": false
+  },
+  "explorer.confirmDelete": false
+}

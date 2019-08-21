@@ -16,5 +16,6 @@ source install/link.sh
 
 #echo "creating vim directories"
 #mkdir -p ~/.vim-tmp
+mkdir -p ~/.scripts/
 
 echo "Done. Reload your terminal."

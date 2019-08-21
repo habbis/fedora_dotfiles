@@ -1,10 +1,10 @@
 #!/bin/bash
 
-DOTFILES=$HOME/.dotfiles
+DOTFILES=$HOME/dotfiles
 
 echo -e "\\nCreating symlinks"
 echo "=============================="
-linkables=$( find -H "$DOTFILES" -maxdepth 3 -name '*_symlink' )
+linkables=$( find -H "$DOTFILES" -maxdepth 3 -name '*.symlink' )
 for file in $linkables ; do
     target="$HOME/.$( basename "$file" '.symlink' )"
     if [ -e "$target" ]; then
@@ -15,12 +15,17 @@ for file in $linkables ; do
     fi
 done
 
+if [ -f ~/misc/ttymaps.kmap ]; then
+	ln -s ~/misc/ttymaps.kmap  ~/.scripts/
+fi
+
 echo -e "\\n\\ninstalling to ~/.config"
 echo "=============================="
 if [ ! -d "$HOME/.config" ]; then
     echo "Creating ~/.config"
     mkdir -p "$HOME/.config"
 fi
+
 
 config_files=$( find "$DOTFILES/config" -d 1 2>/dev/null )
 for config in $config_files; do

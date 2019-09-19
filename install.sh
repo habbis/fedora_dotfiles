@@ -11,7 +11,7 @@ git submodule update --init --recursive
 
 source install/link.sh
 
-#source install/git.sh
+#source ~/dotfiles/install/git.sh
 
 
 #echo "creating vim directories"

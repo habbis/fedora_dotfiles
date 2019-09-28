@@ -10,8 +10,8 @@ echo "Initializing submodule(s)"
 git submodule update --init --recursive
 
 source ~/dotfiles/install/link.sh
-
-#source ~/dotfiles/install/git.sh
+source ~/dotfiles/install/setup.sh
+source ~/dotfiles/install/git_config.sh
 
 
 #echo "creating vim directories"

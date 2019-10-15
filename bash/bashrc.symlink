@@ -134,6 +134,10 @@ remote () {
 #)
 #
 
+aibast( ){
+ssh ai-adm-lbast01.ai-admin.osl.basefarm.net
+
+}
 
 #Den andre er for linbast som funker for alle tre landene, typ `bastion-ssh 08` for norsk linbast, `bastion-ssh 08 sth` for Sverige og `bastion-ssh 08 ams` for Nederland
 
@@ -473,9 +477,51 @@ virt-install \
     #fi 
 #
 #}
+
+
+addkeys() {
+ ssh-add -s /usr/lib64/pkcs11/opensc-pkcs11.so
+
+}
+
+
+add-keys() {
+
+if lsusb | grep 1050:0407; then 
+echo we have a yubikey here; eval `ssh-agent  -s`;
+
+fi
+
+
+
+}
+
+major() {
+echo -e "\e[92m_  _ ____  _ ____ ____    _ _  _ ____ _ ___  ____ _  _ ___\e[0m"
+echo -e "\e[92m|\/| |__|  | |  | |__/    | |\ | |    | |  \ |___ |\ |  |\e[0m"
+echo -e "\e[92m|  | |  | _| |__| |  \    | | \| |___ | |__/ |___ | \|  |\e[0m"
+
+printf '\n\e[96mInciden number\e[0m: '
+read inc
+printf '\e[96mCreate etherpad for new major?\e[0m[y\n]: '
+read ch
+
+if [[ $ch = "y" ]]; then
+        urls="https://marval.basefarm.com/MSM/RFP/Forms/RequestList.aspx?id=23570 https://int.basefarm.com/display/Service/MAJOR+Incident+Management https://etherpad.basefarm.com/p/majorpad https://etherpad.basefarm.com/p/$inc https://notify.basefarm.com/ https://toolbox.basefarm.com/smstools/mailgroupsms"
+
+        for u in $urls; do xdg-open $u; done
+
+else
+        urls="https://marval.basefarm.com/MSM/RFP/Forms/RequestList.aspx?id=23570 https://int.basefarm.com/display/Service/MAJOR+Incident+Management https://etherpad.basefarm.com/p/$inc https://notify.basefarm.com/ https://toolbox.basefarm.com/smstools/mailgroupsms"
+
+        for u in $urls; do xdg-open "$u"; done
+fi
+}
+
 # makes it better for adding yubikey to ssh agent
 # to add yubikey to ssh-agen use 'ssh-add -s $OPENSC' then type the PIN then type the PIN 
-OPENSC="/usr/lib/x86_64-linux-gnu/opensc-pkcs11.so"
+#OPENSC="/usr/lib/x86_64-linux-gnu/opensc-pkcs11.so"
+OPENSC="/usr/lib64/opensc-pkcs11.so"
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 #You also don't need to enter the PIN all the time, since ssh-agent supports PKCS11 as well. Run 

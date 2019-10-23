@@ -11,7 +11,7 @@ git submodule update --init --recursive
 
 source ~/fedora_dotfiles/install/link.sh
 source ~/fedora_dotfiles/install/setup.sh
-source ~/fedora_dotfiles/install/git_config.sh
+#source ~/fedora_dotfiles/install/git_config.sh
 
 
 #echo "creating vim directories"

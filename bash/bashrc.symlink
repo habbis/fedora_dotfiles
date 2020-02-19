@@ -178,12 +178,12 @@ addssh () {
 # Docker#
 #########
 chrome () {
-docker run -it  --cpuset-cpus 2 --memory 2100mb  -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY -v $HOME/Downloads:/home/chrome/Downloads -v $HOME/.config/google-chrome/:/data --security-opt seccomp=$HOME/chrome.json --device /dev/snd --device /dev/dri -v /dev/shm:/dev/shm   --name chrome chrome:mk1
+sudo podman run -it  --cpuset-cpus 2 --memory 2100mb  -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY -v $HOME/Downloads:/home/chrome/Downloads -v $HOME/.config/google-chrome/:/data --security-opt seccomp=$HOME/chrome.json --device /dev/snd --device /dev/dri -v /dev/shm:/dev/shm   --name chrome chrome:mk1
 
 }
 
 vscode () {
- docker run -d \
+ sudo podman run -d \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v $HOME:/home/user \
     -e DISPLAY=unix$DISPLAY \
@@ -196,7 +196,7 @@ vscode () {
 
 
 atom () {
-docker run -v /tmp/.X11-unix:/tmp/.X11-unix \
+sudo podman run -v /tmp/.X11-unix:/tmp/.X11-unix \
               -v $HOME:/home/user \
              -e DISPLAY=unix$DISPLAY atom:mk1 
 
@@ -205,7 +205,7 @@ docker run -v /tmp/.X11-unix:/tmp/.X11-unix \
 
 
 sub3 () {
- docker run -d -it \
+ sudo podman run -d -it \
        -w $HOME/Documents \
        -v $HOME/.config/sublime-text-3:$HOME/.config/sublime-text-3 \
        -v $HOME/Documents:$HOME/Documents \
@@ -221,7 +221,7 @@ sub3 () {
 
 
 typora () {
- docker run -d \
+ sudo podman run -d \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v $HOME:/home/user \
     -e DISPLAY=unix$DISPLAY \

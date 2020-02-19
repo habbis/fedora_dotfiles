@@ -114,6 +114,8 @@ alias bftake='sftp bf-linbast08.osl.basefarm.net'
 alias localpfbind='ssh -L 9000:localhost:8443 -p 1000 habbis@larsen.habbis.trade'
 alias copy="xclip -sel c <"
 alias df='df -x"squashfs"'
+## aws work
+source ~/aws-session-tool/session-tool.sh
 
 #Den første er for winbast, typ `remote 14` for winbast14 osv
 
@@ -477,12 +479,42 @@ virt-install \
     #fi 
 #
 #}
+### aws
+
+awswork () {
+
+get_sessions -s
+
+}
+
+labrole () {
+
+assume_role bf-awsopslab-admin
+
+}
+
+labconsole () {
+
+get_console_url bf-awsopslab-admin
+
+}
 
 
 addkeys() {
  ssh-add -s /usr/lib64/pkcs11/opensc-pkcs11.so
 
 }
+
+
+## url https://github.com/bash-my-aws/bash-my-aws/
+export PATH="$PATH:$HOME/.bash-my-aws/bin"
+source ~/.bash-my-aws/aliases
+
+## aws work
+source ~/aws-session-tool/session-tool.sh
+
+
+### aws ends 
 
 
 add-keys() {
@@ -495,6 +527,8 @@ fi
 
 
 }
+
+
 
 major() {
 echo -e "\e[92m_  _ ____  _ ____ ____    _ _  _ ____ _ ___  ____ _  _ ___\e[0m"

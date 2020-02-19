@@ -114,6 +114,8 @@ alias bftake='sftp bf-linbast08.osl.basefarm.net'
 alias localpfbind='ssh -L 9000:localhost:8443 -p 1000 habbis@larsen.habbis.trade'
 alias copy="xclip -sel c <"
 alias df='df -x"squashfs"'
+## aws work
+source ~/aws-session-tool/session-tool.sh
 
 #Den første er for winbast, typ `remote 14` for winbast14 osv
 
@@ -178,12 +180,12 @@ addssh () {
 # Docker#
 #########
 chrome () {
-docker run -it  --cpuset-cpus 2 --memory 2100mb  -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY -v $HOME/Downloads:/home/chrome/Downloads -v $HOME/.config/google-chrome/:/data --security-opt seccomp=$HOME/chrome.json --device /dev/snd --device /dev/dri -v /dev/shm:/dev/shm   --name chrome chrome:mk1
+sudo podman run -it  --cpuset-cpus 2 --memory 2100mb  -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY -v $HOME/Downloads:/home/chrome/Downloads -v $HOME/.config/google-chrome/:/data --security-opt seccomp=$HOME/chrome.json --device /dev/snd --device /dev/dri -v /dev/shm:/dev/shm   --name chrome chrome:mk1
 
 }
 
 vscode () {
- docker run -d \
+ sudo podman run -d \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v $HOME:/home/user \
     -e DISPLAY=unix$DISPLAY \
@@ -196,7 +198,7 @@ vscode () {
 
 
 atom () {
-docker run -v /tmp/.X11-unix:/tmp/.X11-unix \
+sudo podman run -v /tmp/.X11-unix:/tmp/.X11-unix \
               -v $HOME:/home/user \
              -e DISPLAY=unix$DISPLAY atom:mk1 
 
@@ -205,7 +207,7 @@ docker run -v /tmp/.X11-unix:/tmp/.X11-unix \
 
 
 sub3 () {
- docker run -d -it \
+ sudo podman run -d -it \
        -w $HOME/Documents \
        -v $HOME/.config/sublime-text-3:$HOME/.config/sublime-text-3 \
        -v $HOME/Documents:$HOME/Documents \
@@ -221,7 +223,7 @@ sub3 () {
 
 
 typora () {
- docker run -d \
+ sudo podman run -d \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v $HOME:/home/user \
     -e DISPLAY=unix$DISPLAY \
@@ -477,12 +479,42 @@ virt-install \
     #fi 
 #
 #}
+### aws
+
+awswork () {
+
+get_sessions -s
+
+}
+
+labrole () {
+
+assume_role bf-awsopslab-admin
+
+}
+
+labconsole () {
+
+get_console_url bf-awsopslab-admin
+
+}
 
 
 addkeys() {
  ssh-add -s /usr/lib64/pkcs11/opensc-pkcs11.so
 
 }
+
+
+## url https://github.com/bash-my-aws/bash-my-aws/
+export PATH="$PATH:$HOME/.bash-my-aws/bin"
+source ~/.bash-my-aws/aliases
+
+## aws work
+source ~/aws-session-tool/session-tool.sh
+
+
+### aws ends 
 
 
 add-keys() {
@@ -495,6 +527,8 @@ fi
 
 
 }
+
+
 
 major() {
 echo -e "\e[92m_  _ ____  _ ____ ____    _ _  _ ____ _ ___  ____ _  _ ___\e[0m"

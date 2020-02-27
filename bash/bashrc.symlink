@@ -292,9 +292,11 @@ touch ${name}/roles/${rolename}/handlers/main.yml
 touch ${name}/roles/${rolename}/task/main.yml
 }
 
+
+
 # Download  ubuntu cloud images for kvm
 
-bionic () {
+old_bionic () {
   echo "The image name for the new image"
  read image
 
@@ -337,7 +339,7 @@ fi
 
 
 
-xenial () {
+old_xenial () {
   echo "The image name for the new image"
  read image
 
@@ -378,7 +380,7 @@ fi
 }
 
 
-trusty () {
+old_trusty () {
   echo "The image name for the new image"
  read image
 
@@ -421,7 +423,7 @@ fi
 }
 
 
-centos7 () {
+old_centos7 () {
   echo "The image name for the new image"
  read image
 
@@ -467,6 +469,118 @@ fi
  if [ -f ${image}.img ]; then
  rm -rf CentOS-7-x86_64-GenericCloud-1907.*
  fi 
+}
+
+bionic () {
+echo "image name and hostname"
+read image
+#echo "hostname of server"
+#read hostname
+HOME='/home/ebbestad/'
+# default location of libvirt
+default='/var/lib/libvirt/images/'
+# password option
+# --root-password password:yourpassword
+
+sudo virt-builder ubuntu-18.04 \
+	--ssh-inject root:file:${HOME}.ssh/authorized_keys \
+	--output ${default}${image}.qcow2 \
+	--size 25G --hostname ${image} \
+	--firstboot ${HOME}/privat_my_bashscripts/4-virt_script/network-setup.sh \
+	--install network-manager,ifupdown  \
+	--format qcow2
+
+
+#echo "Name of the virtual machine"
+#read virtname
+
+#echo "os variant, example ubuntu18.04, centos7.0, debian9,"
+
+echo "nework address"
+ip="10.16.1.2"
+read newip
+
+sed -i 's|${ip}|${newip}|g' /$HOME/privat_my_bashscripts/4-virt_script/network-setup.sh
+
+echo "size of ram"
+read ram
+
+echo "amount of cpu"
+read cpu
+
+virt-install \
+  --memory ${ram} \
+  --vcpus ${cpu} \
+  --name ${image} \
+  --disk ${default}${image}.qcow2,device=disk \
+  --os-type Linux \
+  --os-variant ubuntu18.04 \
+  --virt-type kvm \
+  --graphics vnc \
+  --network default \
+  --import
+
+}
+
+bionic-gui () {
+echo "image name and hostname"
+read image
+#echo "hostname of server"
+#read hostname
+HOME='/home/ebbestad/'
+# default location of libvirt
+default='/var/lib/libvirt/images/'
+# password option
+# --root-password password:yourpassword
+
+sudo virt-builder ubuntu-18.04 \
+	--ssh-inject root:file:${HOME}.ssh/authorized_keys \
+	--output ${default}${image}.qcow2 \
+	--size 25G --hostname ${image} \
+	--firstboot ${HOME}/privat_my_bashscripts/4-virt_script/network-setup.sh \
+	--install network-manager,ifupdown,ubuntu-mate-desktop \
+	--format qcow2
+
+
+#echo "Name of the virtual machine"
+#read virtname
+
+#echo "os variant, example ubuntu18.04, centos7.0, debian9,"
+
+echo "nework address"
+ip="10.16.1.2"
+read newip
+
+sed -i 's|${ip}|${newip}|g' ${HOME}privat_my_bashscripts/4-virt_script/network-setup.sh
+
+echo "size of ram"
+read ram
+
+echo "amount of cpu"
+read cpu
+
+virt-install \
+  --memory ${ram} \
+  --vcpus ${cpu} \
+  --name ${image} \
+  --disk ${default}${image}.qcow2,device=disk \
+  --os-type Linux \
+  --os-variant ubuntu18.04 \
+  --virt-type kvm \
+  --graphics spice \
+  --network default \
+  --import
+
+}
+
+image-delete () {
+echo "image to delete"
+read image
+echo "location of image"
+read location
+#cd ${location}
+sudo rm -f ${location}${image}.qcow2
+sudo find  /var/lib/libvirt/images/ -name ${image}.qcow2
 }
 
 ## cd to the virtual machine dir and run the command.
@@ -592,6 +706,13 @@ else
         for u in $urls; do xdg-open "$u"; done
 fi
 }
+
+# ssh with gnome-keyring
+
+if [ -n "$DESKTOP_SESSION" ];then
+    eval $(gnome-keyring-daemon --start)
+    export SSH_AUTH_SOCK
+fi
 
 # makes it better for adding yubikey to ssh agent
 # to add yubikey to ssh-agen use 'ssh-add -s $OPENSC' then type the PIN then type the PIN 

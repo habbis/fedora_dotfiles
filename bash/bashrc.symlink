@@ -114,8 +114,6 @@ alias bftake='sftp bf-linbast08.osl.basefarm.net'
 alias localpfbind='ssh -L 9000:localhost:8443 -p 1000 habbis@larsen.habbis.trade'
 alias copy="xclip -sel c <"
 alias df='df -x"squashfs"'
-## aws work
-source ~/aws-session-tool/session-tool.sh
 
 #Den første er for winbast, typ `remote 14` for winbast14 osv
 
@@ -180,25 +178,40 @@ addssh () {
 # Docker#
 #########
 chrome () {
-sudo podman run -it  --cpuset-cpus 2 --memory 2100mb  -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY -v $HOME/Downloads:/home/chrome/Downloads -v $HOME/.config/google-chrome/:/data --security-opt seccomp=$HOME/chrome.json --device /dev/snd --device /dev/dri -v /dev/shm:/dev/shm   --name chrome chrome:mk1
+ vscode run -it  --cpuset-cpus 2 --memory 2100mb  -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY -v $HOME/Downloads:/home/chrome/Downloads -v $HOME/.config/google-chrome/:/data --security-opt seccomp=$HOME/chrome.json --device /dev/snd --device /dev/dri -v /dev/shm:/dev/shm   --name chrome chrome:mk1
 
 }
 
 vscode () {
- sudo podman run -d \
+  docker run -d \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v $HOME:/home/user \
     -e DISPLAY=unix$DISPLAY \
     --device /dev/dri \
     --name vscode \
-    vscode:mk1 
+    vscode:mk1
 
 
 }
 
 
+
+spotify () {
+ docker run -d \
+       -v /etc/localtime:/etc/localtime:ro \
+      -v /tmp/.X11-unix:/tmp/.X11-unix \
+       -e DISPLAY=unix$DISPLAY \
+       --device /dev/snd:/dev/snd \
+       -v $HOME/.spotify/config:/home/spotify/.config/spotify \
+       -v $HOME/.spotify/cache:/home/spotify/spotify \
+       --name spotify \
+             spotify
+
+}
+
+
 atom () {
-sudo podman run -v /tmp/.X11-unix:/tmp/.X11-unix \
+ vscode run -v /tmp/.X11-unix:/tmp/.X11-unix \
               -v $HOME:/home/user \
              -e DISPLAY=unix$DISPLAY atom:mk1 
 
@@ -207,7 +220,7 @@ sudo podman run -v /tmp/.X11-unix:/tmp/.X11-unix \
 
 
 sub3 () {
- sudo podman run -d -it \
+  vscode run -d -it \
        -w $HOME/Documents \
        -v $HOME/.config/sublime-text-3:$HOME/.config/sublime-text-3 \
        -v $HOME/Documents:$HOME/Documents \
@@ -223,7 +236,7 @@ sub3 () {
 
 
 typora () {
- sudo podman run -d \
+  vscode run -d \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v $HOME:/home/user \
     -e DISPLAY=unix$DISPLAY \
@@ -238,6 +251,30 @@ typora () {
 #########
 # Utillity #
 #########
+
+githabbis () {
+
+ sudo git config user.name "habbis"
+
+ sudo git config user.email "habbis@medmail.ch"
+
+ sudo git config --system core.editor "vim"
+
+
+}
+
+
+gitebbestad () {
+
+sudo git config user.name "Eirik Habbestad"
+
+sudo git config user.email "eirik.habbestad@basefarm.net"
+
+sudo git config --system core.editor "vim"
+
+
+}
+
 
 mkp () {
 echo "Ansible playbook name"
@@ -481,9 +518,13 @@ virt-install \
 #}
 ### aws
 
+
+## aws work
+source ~/aws-session-tool/session-tool.sh
+
 awswork () {
 
-get_sessions -s
+get_session -s
 
 }
 

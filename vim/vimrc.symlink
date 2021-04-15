@@ -31,6 +31,7 @@ Plug 'habbis/dragvisuals'
 Plug 'sjl/badwolf'
 Plug 'dracula/vim'
 Plug 'reedes/vim-colors-pencil'
+Plug 'artanikin/vim-synthwave84'
 "
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
@@ -54,7 +55,8 @@ call plug#end()
 
 
 
- colorscheme dracula
+" colorscheme dracula
+colorscheme synthwave84
 
 " set spelling in vim
 set nospell

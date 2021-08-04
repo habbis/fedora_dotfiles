@@ -1,0 +1,122 @@
+#enable mouse support for switching panes/windows
+setw -g mouse on
+
+# set vi mode for copy mode
+setw -g mode-keys vi
+
+# unbind default prefix and set it to Ctrl+a
+unbind C-b
+set -g prefix C-a
+bind C-a send-prefix
+
+
+# for nested tmux sessions
+bind-key a send-prefix
+
+# Rather than constraining window size to the maximum size of any client
+# connected to the *session*, constrain window size to the maximum size of any
+# client connected to *that window*. Much more reasonable.
+setw -g aggressive-resize on
+
+# make delay shorter
+set -sg escape-time 0
+
+# make window/pane index start with 1
+set -g base-index 1
+setw -g pane-base-index 1
+
+######################
+#### Key Bindings ####
+######################
+
+# reload config file
+bind r source-file ~/.tmux.conf \; display "Config Reloaded!"
+
+# split window and fix path for tmux 1.9
+bind | split-window -h -c "#{pane_current_path}"
+bind - split-window -v -c "#{pane_current_path}"
+
+# synchronize all panes in a window
+bind y setw synchronize-panes
+
+# pane movement shortcuts
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+bind -r C-h select-window -t :-
+bind -r C-l select-window -t :+
+
+# Resize pane shortcuts
+bind -r H resize-pane -L 10
+bind -r J resize-pane -D 10
+bind -r K resize-pane -U 10
+bind -r L resize-pane -R 10
+
+# enable mouse support for switching panes/windows
+# NOTE: This breaks selecting/copying text on OSX
+# To select text as expected, hold Option to disable it (iTerm2)
+setw -g mouse on
+
+# set vi mode for copy mode
+setw -g mode-keys vi
+
+
+
+## collors
+
+# colors for tmux
+set-option -g default-terminal "screen-256color"
+
+
+tm_con="♟"
+tm_color_background=colour234
+tm_color_active=colour118
+tm_color_inactive=colour241
+tm_color_feature=colour4
+tm_color_music=colour203
+
+# separators
+tm_left_separator=''
+tm_left_separator_black=''
+tm_right_separator=''
+tm_right_separator_black=''
+tm_session_symbol=''
+
+set -g status-left-length 32
+set -g status-right-length 150
+set -g status-interval 5
+
+
+# default statusbar colors
+# set-option -g status-bg colour0
+set-option -g status-fg $tm_color_active
+set-option -g status-bg default
+set-option -g status-attr default
+
+# default window title colors
+set-window-option -g window-status-fg $tm_color_inactive
+set-window-option -g window-status-bg default
+set -g window-status-format "#I #W"
+
+# active window title colors
+set-window-option -g  window-status-current-format "#[fg=$tm_color_background,bg=$tm_color_active]$tm_left_separator_black #[fg=colour0,bg=$tm_color_active,bold]#I #W #[bg=$tm_color_background,fg=$tm_color_active]$tm_left_separator_black "
+
+# pane border
+set-option -g pane-border-fg $tm_color_inactive
+set-option -g pane-active-border-fg $tm_color_active
+
+# message text
+set-option -g message-bg default
+set-option -g message-fg $tm_color_active
+
+# pane number display
+set-option -g display-panes-active-colour $tm_color_active
+set-option -g display-panes-colour $tm_color_inactive
+
+# Tmux yank does copying to system clipboard
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-yank'
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'

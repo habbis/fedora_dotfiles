@@ -1,4 +1,4 @@
 
 # fedora_dotfiles
 
-Fedora dotfiles with newser tmux.conf
+Fedora dotfiles with  tmux.conf

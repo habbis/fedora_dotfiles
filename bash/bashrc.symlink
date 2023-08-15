@@ -81,9 +81,9 @@ export EDITOR="$VISUAL"
 
 
 # This command start tmux or screen and check if screen or tmux is running 
-if command -v tmux>/dev/null; then
-	[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
-fi
+#if command -v tmux>/dev/null; then
+#	[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
+#fi
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -108,7 +108,7 @@ set editor=vim
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # keychain allow ssh-agen on all shell sessions 
-eval `keychain --eval --agents ssh $HOME/.ssh/id_rsa`
+eval `keychain --eval --agents ssh $HOME/.ssh/id_ed25519`
 
 ###### end
 
@@ -133,6 +133,13 @@ alias localhabbvpn='sudo openvpn $HOME/.cert/local-larsen-UDP4-1194-config.ovpn'
 alias localpfbind='ssh -L 9000:localhost:10443 -p 1000 root@larsen.habbestad.org'
 alias copy="xclip -sel c <"
 alias df='df -x"squashfs"'
+alias sftplinbast='sftp -o "ProxyCommand  connect -S hf-ssh-jump1.no.habbfarm.net" ebbestad@hf-linbast1.no.habbfarm.net'
+alias mysql_infra='mysql --host mysql1.no.habbfarm.net --database infra  --user $USER --password'
+alias butane='docker run --rm --interactive       \
+              #--security-opt label=disable        \
+              --volume ${PWD}:/pwd --workdir /pwd \
+              quay.io/coreos/butane:release'
+alias mkpasswd='docker run -ti --rm quay.io/coreos/mkpasswd --method=yescrypt'
 
 #Den første er for winbast, typ `remote 14` for winbast14 osv
 
@@ -193,6 +200,11 @@ touch ${name}/site.yml
 touch ${name}/roles/${rolename}/handlers/main.yml
 touch ${name}/roles/${rolename}/task/main.yml
 }
+
+# start kasmVNC server
+startvnc () {
+vncserver -select-de mate
+}
 ###
 
 
@@ -208,3 +220,19 @@ if [ -d .bin ]; then
 else 
     mkdir -p $HOME/.bin
 fi
+
+
+
+# perl fix
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/home/ebbestad/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
+PATH="/home/ebbestad/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/ebbestad/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/ebbestad/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/ebbestad/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/ebbestad/perl5"; export PERL_MM_OPT;

@@ -108,11 +108,8 @@ set editor=vim
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # keychain allow ssh-agen on all shell sessions 
-<<<<<<< HEAD
 eval `keychain --eval --agents ssh $HOME/.ssh/id_ed25519`
-=======
-eval `keychain --eval --agents ssh /home/ebbestad/.ssh/id_ed25519`
->>>>>>> 74f61dd42a7ae5641b3164f16c84441a7d662f59
+
 
 ###### end
 

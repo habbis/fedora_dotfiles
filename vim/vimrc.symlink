@@ -1,5 +1,11 @@
 
-set nocompatible              
+set nocompatible
+
+" search higelight
+set hlsearch
+
+" paste fix
+set paste
 
 set history=1000         " remember more commands and search history
 set undolevels=1000      " use many muchos levels of undo

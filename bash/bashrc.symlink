@@ -204,6 +204,7 @@ touch ${name}/roles/${rolename}/task/main.yml
 
 # start kasmVNC server
 startvnc () {
+#vncserver -select-de xfce
 vncserver -select-de mate
 }
 ###

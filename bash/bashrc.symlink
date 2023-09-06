@@ -170,13 +170,14 @@ home-ssh () {
 
 
 gitconfig () {
-   
   echo "Your username git"
-  read -sp "username"
+  #read -sp "username"
+  read  "username"
   git config user.name $username
 
   echo "Your email git"
-  read -sp "email"
+  #read -sp "email"
+  read  "email"
   git config user.email $email
 
   git config --system core.editor "vim"

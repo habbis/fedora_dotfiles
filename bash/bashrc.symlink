@@ -210,11 +210,12 @@ vncserver -select-de mate
 ###
 
 
-### paths for dirrent programs 
+### paths for dirrent programs
 
 # added by Anaconda3 installer
 export PATH="$HOME/anaconda3/bin:$PATH"
 export PATH=$PATH:$HOME/.local/bin/
+export PATH=$PATH:$HOME/go/bin/
 
 # check if .bin exist create if not and export
 if [ -d .bin ]; then

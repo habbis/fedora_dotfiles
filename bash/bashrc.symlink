@@ -170,17 +170,13 @@ home-ssh () {
 
 
 gitconfig () {
-  echo "Your username git"
-  #read -sp "username"
-  read  "username"
+  read -p "Your username git: " username
   git config user.name $username
 
-  echo "Your email git"
-  #read -sp "email"
-  read  "email"
+  read -p  "Your email git: " email
   git config user.email $email
 
-  git config --system core.editor "vim"
+  #git config --system core.editor "vim"
 
 
 }
@@ -217,6 +213,8 @@ vncserver -select-de mate
 export PATH="$HOME/anaconda3/bin:$PATH"
 export PATH=$PATH:$HOME/.local/bin/
 export PATH=$PATH:$HOME/go/bin/
+# global custom golang
+export PATH=$PATH:/usr/local/go/bin
 
 # check if .bin exist create if not and export
 if [ -d .bin ]; then

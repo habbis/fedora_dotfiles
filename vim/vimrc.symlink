@@ -1,5 +1,5 @@
 
-set nocompatible              
+set nocompatible
 
 set history=1000         " remember more commands and search history
 set undolevels=1000      " use many muchos levels of undo
@@ -40,7 +40,7 @@ Plug 'tomtom/tcomment_vim'
 " Plug 'itchyny/lightline.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'cespare/vim-toml', { 'branch': 'main' }
-Plug 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
 Plug 'scrooloose/nerdtree'
 Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'ekalinin/Dockerfile.vim'

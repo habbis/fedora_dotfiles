@@ -1,5 +1,17 @@
 
 set nocompatible
+<<<<<<< HEAD
+=======
+
+" search higelight
+set hlsearch
+
+" paste fix
+set paste
+
+" set tabstop=3
+set tabstop=8 softtabstop=0 expandtab shiftwidth=3 smarttab
+>>>>>>> 95643bfe822f929f289f0abcb1857a8f9bf5054c
 
 set history=1000         " remember more commands and search history
 set undolevels=1000      " use many muchos levels of undo

@@ -181,22 +181,43 @@ gitconfig () {
 
 }
 
+gitconfig_global () {
+  read -p "Your username git: " username
+  sudo git config --global user.name $username
 
-## wip
-mkp () {
-echo "Ansible playbook name"
-read  name
-mkdir -p ${name}
-mkdir -p group_vars
-echo "Name of the role"
-read rolename 
-mkdir -p ${name}/roles/${rolename}/handlers/
-mkdir -p ${name}/roles/${rolename}/task/
-mkdir -p ${name}/roles/${rolename}/templates/
-touch ${name}/hosts
-touch ${name}/site.yml
-touch ${name}/roles/${rolename}/handlers/main.yml
-touch ${name}/roles/${rolename}/task/main.yml
+  read -p  "Your email git: " email
+  sudo git config --global user.email $email
+
+  #git config --system core.editor "vim"
+
+}
+
+
+gitconfig_unset_gpg () {
+  git config --global --unset gpg.format
+
+}
+
+gitconfig_gpg () {
+  echo "From the list of GPG keys, copy the long form of the GPG key ID you'd like to use. In this example, the GPG key ID is 3AA5C34371567BD2:"
+  gpg --list-secret-keys --keyid-format=long
+  read -p "Your GPG key ID: " GPG_ID
+  git config --global user.signingkey $GPG_ID
+
+
+
+}
+
+fix_gnupg_folder () {
+   chown -R $(whoami) ~/.gnupg/
+   find ~/.gnupg -type f -exec chmod 600 {} \;
+   find ~/.gnupg -type d -exec chmod 700 {} \;
+
+}
+
+make_ansible_role () {
+ read -p "ansible role name" ROLE_NAME
+ ansible-galaxy init $ROLE_NAME
 }
 
 # start kasmVNC server

@@ -124,7 +124,7 @@ alias dirs='dirs -v'
 alias mutt='neomutt'
 alias  lsblk='lsblk -e7'
 alias rn='ranger'
-alias root='ssh -l root'
+alias root='ssh -l ansible'
 alias me='ssh -l $USER'
 # My custom alias for bash
 alias pud='pushd'
@@ -212,6 +212,7 @@ vncserver -select-de mate
 # added by Anaconda3 installer
 export PATH="$HOME/anaconda3/bin:$PATH"
 export PATH=$PATH:$HOME/.local/bin/
+#export PATH=$PATH:$HOME/node_modules/.bin/
 export PATH=$PATH:$HOME/go/bin/
 # global custom golang
 export PATH=$PATH:/usr/local/go/bin
@@ -224,6 +225,8 @@ else
 fi
 
 
+# node stuff
+export NODE_EXTRA_CA_CERTS="/usr/local/share/ca-certificates/habbfarm.crt"
 
 # perl fix
 export LC_CTYPE=en_US.UTF-8
@@ -238,3 +241,8 @@ PERL5LIB="/home/ebbestad/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5
 PERL_LOCAL_LIB_ROOT="/home/ebbestad/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/ebbestad/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/ebbestad/perl5"; export PERL_MM_OPT;
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+eval "$(~/.local/bin/mise activate)"
